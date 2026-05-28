@@ -27,6 +27,7 @@
     "test": "echo running tests... && exit 0"
   },
   "dependencies": {
+    "lucide-react": "^1.17.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },

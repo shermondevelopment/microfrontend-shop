@@ -30,7 +30,7 @@ export default defineConfig({
           shareScope: 'default',
         },
       },
-      shared: ['react', 'react-dom'],
+      shared: ['react', 'react-dom', 'lucide-react'],
     }),
   ],
   server: {

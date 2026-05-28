@@ -17,7 +17,7 @@ export default defineConfig({
       exposes: {
         './Footer': './src/Footer.tsx',
       },
-      shared: ['react', 'react-dom'],
+      shared: ['react', 'react-dom', 'lucide-react'],
     }),
   ],
   server: {

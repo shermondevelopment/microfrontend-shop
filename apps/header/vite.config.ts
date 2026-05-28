@@ -17,7 +17,7 @@ export default defineConfig({
       exposes: {
         './Header': './src/Header.tsx',
       },
-      shared: ['react', 'react-dom'],
+      shared: ['react', 'react-dom', 'lucide-react'],
     }),
   ],
   server: {
