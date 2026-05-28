@@ -4,3 +4,10 @@ declare module 'header/Header' {
   const Header: ComponentType
   export default Header
 }
+
+declare module 'footer/Footer' {
+  import type { ComponentType } from 'react'
+
+  const Footer: ComponentType
+  export default Footer
+}

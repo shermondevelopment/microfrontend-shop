@@ -3,44 +3,32 @@ import react from '@vitejs/plugin-react'
 import { federation } from '@module-federation/vite'
 import { fileURLToPath, URL } from 'node:url'
 
-const hostRoot = fileURLToPath(new URL('.', import.meta.url))
+const footerRoot = fileURLToPath(new URL('.', import.meta.url))
 
-// https://vite.dev/config/
 export default defineConfig({
-  root: hostRoot,
-  cacheDir: '../../node_modules/.vite/host',
+  root: footerRoot,
+  cacheDir: '../../node_modules/.vite/footer',
   plugins: [
     react(),
     federation({
-      name: 'host',
+      name: 'footer',
       dts: false,
-      remotes: {
-        header: {
-          type: 'module',
-          name: 'header',
-          entry: 'http://localhost:3001/remoteEntry.js',
-          entryGlobalName: 'header',
-          shareScope: 'default',
-        },
-        footer: {
-          type: 'module',
-          name: 'footer',
-          entry: 'http://localhost:3002/remoteEntry.js',
-          entryGlobalName: 'footer',
-          shareScope: 'default',
-        },
+      filename: 'remoteEntry.js',
+      exposes: {
+        './Footer': './src/Footer.tsx',
       },
       shared: ['react', 'react-dom'],
     }),
   ],
   server: {
     host: 'localhost',
-    port: 3000,
+    port: 3002,
     strictPort: true,
+    origin: 'http://localhost:3002',
     hmr: {
       host: 'localhost',
       protocol: 'ws',
-      clientPort: 3000,
+      clientPort: 3002,
     },
     cors: true,
     headers: {
@@ -49,7 +37,7 @@ export default defineConfig({
   },
   preview: {
     host: 'localhost',
-    port: 3000,
+    port: 3002,
     strictPort: true,
     cors: true,
     headers: {
@@ -58,7 +46,7 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
-    outDir: '../../dist/host',
+    outDir: '../../dist/footer',
     emptyOutDir: true,
     manifest: true,
     modulePreload: false,
