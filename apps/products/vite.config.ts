@@ -3,32 +3,32 @@ import react from '@vitejs/plugin-react'
 import { federation } from '@module-federation/vite'
 import { fileURLToPath, URL } from 'node:url'
 
-const headerRoot = fileURLToPath(new URL('.', import.meta.url))
+const productsRoot = fileURLToPath(new URL('.', import.meta.url))
 
 export default defineConfig({
-  root: headerRoot,
-  cacheDir: '../../node_modules/.vite/header',
+  root: productsRoot,
+  cacheDir: '../../node_modules/.vite/products',
   plugins: [
     react(),
     federation({
-      name: 'header',
+      name: 'products',
       dts: false,
       filename: 'remoteEntry.js',
       exposes: {
-        './Header': './src/Header.tsx',
+        './ProductsList': './src/ProductsList.tsx',
       },
-      shared: ['react', 'react-dom', 'lucide-react', '@tanstack/react-query', 'axios'],
+      shared: ['react', 'react-dom', '@tanstack/react-query', 'axios'],
     }),
   ],
   server: {
     host: 'localhost',
-    port: 3001,
+    port: 3003,
     strictPort: true,
-    origin: 'http://localhost:3001',
+    origin: 'http://localhost:3003',
     hmr: {
       host: 'localhost',
       protocol: 'ws',
-      clientPort: 3001,
+      clientPort: 3003,
     },
     cors: true,
     headers: {
@@ -37,7 +37,7 @@ export default defineConfig({
   },
   preview: {
     host: 'localhost',
-    port: 3001,
+    port: 3003,
     strictPort: true,
     cors: true,
     headers: {
@@ -46,7 +46,7 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
-    outDir: '../../dist/header',
+    outDir: '../../dist/products',
     emptyOutDir: true,
     manifest: true,
     modulePreload: false,

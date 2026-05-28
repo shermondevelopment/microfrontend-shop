@@ -29,8 +29,15 @@ export default defineConfig({
           entryGlobalName: 'footer',
           shareScope: 'default',
         },
+        products: {
+          type: 'module',
+          name: 'products',
+          entry: 'http://localhost:3003/remoteEntry.js',
+          entryGlobalName: 'products',
+          shareScope: 'default',
+        },
       },
-      shared: ['react', 'react-dom', 'lucide-react'],
+      shared: ['react', 'react-dom', 'lucide-react', '@tanstack/react-query', 'axios'],
     }),
   ],
   server: {

@@ -1,16 +1,17 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { createAppQueryClient } from '@microfrontend/shared'
-import App from './App.tsx'
-import './index.css'
+import ProductsList from './ProductsList'
 
 const queryClient = createAppQueryClient()
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+function App() {
+  return (
     <QueryClientProvider client={queryClient}>
-      <App />
+      <main className="min-h-screen bg-green-50 px-6 py-8">
+        <ProductsList />
+      </main>
     </QueryClientProvider>
-  </StrictMode>,
-)
+  )
+}
+
+export default App

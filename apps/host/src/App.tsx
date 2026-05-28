@@ -3,6 +3,7 @@ import { HeaderSkeleton } from '@microfrontend/ui'
 
 const Header = lazy(() => import('header/Header'))
 const Footer = lazy(() => import('footer/Footer'))
+const ProductsList = lazy(() => import('products/ProductsList'))
 
 function App() {
   return (
@@ -10,6 +11,13 @@ function App() {
       <Suspense fallback={<HeaderSkeleton />}>
         <Header />
       </Suspense>
+
+      <section className="flex-1 px-6 py-8">
+        <Suspense fallback={<div>Carregando produtos...</div>}>
+          <ProductsList />
+        </Suspense>
+      </section>
+
       <Suspense fallback={<div>Carregando footer...</div>}>
         <Footer />
       </Suspense>

@@ -11,3 +11,10 @@ declare module 'footer/Footer' {
   const Footer: ComponentType
   export default Footer
 }
+
+declare module 'products/ProductsList' {
+  import type { ComponentType } from 'react'
+
+  const ProductsList: ComponentType
+  export default ProductsList
+}
