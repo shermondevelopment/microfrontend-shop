@@ -24,6 +24,23 @@ describe("Header", () => {
     expect(screen.getAllByRole("link", { name: "Contato" })).toHaveLength(2);
   });
 
+  it("marks the clicked navigation link as active", async () => {
+    const user = userEvent.setup();
+
+    render(<Header />);
+
+    const inicioLink = screen.getByRole("link", { name: "Inicio" });
+    const produtosLink = screen.getByRole("link", { name: "Produtos" });
+
+    expect(inicioLink).toHaveClass("text-text-hover");
+    expect(produtosLink).toHaveClass("text-text-primary");
+
+    await user.click(produtosLink);
+
+    expect(produtosLink).toHaveClass("text-text-hover");
+    expect(inicioLink).toHaveClass("text-text-primary");
+  });
+
   it("closes the mobile menu when a menu link is clicked", async () => {
     const user = userEvent.setup();
 
