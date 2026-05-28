@@ -4,7 +4,7 @@ const Header = lazy(() => import('header/Header'))
 
 function App() {
   return (
-    <main>
+    <main className="min-h-screen bg-green-50">
       <Suspense fallback={<div>Carregando header...</div>}>
         <Header />
       </Suspense>
