@@ -24,7 +24,7 @@
     "preview:footer": "vite preview --config apps/footer/vite.config.ts --configLoader runner",
     "preview:all": "concurrently \"npm run preview:header\" \"npm run preview:footer\" \"npm run preview\"",
     "prepare": "husky",
-    "test": "npm run test:header",
+    "test": "npm run test --workspaces --if-present",
     "test:header": "vitest run --config apps/header/vitest.config.ts"
   },
   "dependencies": {
