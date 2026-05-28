@@ -1,8 +1,14 @@
+import { lazy, Suspense } from 'react'
+
+const Header = lazy(() => import('header/Header'))
+
 function App() {
   return (
-    <>
-      Aplicação inicial
-    </>
+    <main>
+      <Suspense fallback={<div>Carregando header...</div>}>
+        <Header />
+      </Suspense>
+    </main>
   )
 }
 
