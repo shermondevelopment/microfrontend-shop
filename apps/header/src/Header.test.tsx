@@ -12,6 +12,7 @@ describe("Header", () => {
     expect(screen.getByRole("link", { name: "Produtos" })).toBeInTheDocument();
     expect(screen.getByText("2")).toBeInTheDocument();
   });
+
   it("opens the mobile menu", async () => {
     const user = userEvent.setup();
 
@@ -21,5 +22,17 @@ describe("Header", () => {
 
     expect(screen.getByText("Menu")).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: "Contato" })).toHaveLength(2);
+  });
+
+  it("closes the mobile menu when a menu link is clicked", async () => {
+    const user = userEvent.setup();
+
+    render(<Header />);
+
+    await user.click(screen.getByRole("button", { name: "Abrir menu" }));
+    expect(screen.getByText("Menu")).toBeInTheDocument();
+
+    await user.click(screen.getAllByRole("link", { name: "Contato" })[1]);
+    expect(screen.queryByText("Menu")).not.toBeInTheDocument();
   });
 });
