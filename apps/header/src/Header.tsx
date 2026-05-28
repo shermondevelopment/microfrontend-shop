@@ -47,7 +47,10 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <button className="relative flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-background-tinted shadow-sm transition hover:scale-105 hover:shadow-sm">
+          <button
+            aria-label="Notificações"
+            className="relative flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-background-tinted shadow-sm transition hover:scale-105 hover:shadow-sm"
+          >
             <Bell className="h-5 w-5 text-text-primary" />
 
             <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-black px-1 text-[10px] font-bold text-white">
@@ -55,11 +58,15 @@ export default function Header() {
             </span>
           </button>
 
-          <button className="relative flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-background-tinted shadow-sm transition hover:scale-105 hover:shadow-sm">
+          <button
+            aria-label="Perfil"
+            className="relative flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-background-tinted shadow-sm transition hover:scale-105 hover:shadow-sm"
+          >
             <User className="h-5 w-5 text-text-primary" />
           </button>
 
           <button
+            aria-label="Abrir menu"
             onClick={() => setOpen(!open)}
             className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm md:hidden"
           >
@@ -86,6 +93,7 @@ export default function Header() {
               <span className="text-lg font-semibold text-gray-800">Menu</span>
 
               <button
+                aria-label="Fechar menu"
                 onClick={() => setOpen(false)}
                 className="rounded-full p-2 transition hover:bg-gray-100"
               >
