@@ -1,9 +1,38 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import Header from "./Header";
+import { useQuery, type UseQueryResult } from "@tanstack/react-query";
+import type { Cart } from "@microfrontend/types";
+
+vi.mock("@tanstack/react-query", () => ({
+  useQuery: vi.fn(),
+}));
+
+const mockCartQuery = (
+  overrides: Partial<UseQueryResult<Cart, Error>> = {},
+): UseQueryResult<Cart, Error> =>
+  ({
+    data: {
+      id: 1,
+      products: [],
+      total: 0,
+      discountedTotal: 0,
+      userId: 1,
+      totalProducts: 2,
+      totalQuantity: 2,
+    },
+    isLoading: false,
+    isError: false,
+    error: null,
+    ...overrides,
+  }) as UseQueryResult<Cart, Error>;
 
 describe("Header", () => {
+  beforeEach(() => {
+    vi.mocked(useQuery).mockReturnValue(mockCartQuery());
+  });
+
   it("renders the main navigation", () => {
     render(<Header />);
 
@@ -51,5 +80,20 @@ describe("Header", () => {
 
     await user.click(screen.getAllByRole("link", { name: "Contato" })[1]);
     expect(screen.queryByText("Menu")).not.toBeInTheDocument();
+  });
+
+  it("shows badge skeleton while loading", () => {
+    vi.mocked(useQuery).mockReturnValue(
+      mockCartQuery({
+        data: undefined,
+        isLoading: true,
+      }),
+    );
+
+    render(<Header />);
+
+    expect(screen.getByTestId("cart-badge-skeleton")).toBeInTheDocument();
+
+    expect(screen.queryByTestId("cart-badge")).not.toBeInTheDocument();
   });
 });

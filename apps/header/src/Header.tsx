@@ -58,9 +58,9 @@ export default function Header() {
             <Bell className="h-5 w-5 text-text-primary" />
 
             {isLoading ? (
-              <span className="absolute -right-1 -top-1 h-5 w-5 animate-pulse rounded-full bg-gray-300" />
+              <span data-testid="cart-badge-skeleton" className="absolute -right-1 -top-1 h-5 w-5 animate-pulse rounded-full bg-gray-300" />
             ) : (
-              <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-black px-1 text-[10px] font-bold text-white">
+              <span data-testid="cart-badge" className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-black px-1 text-[10px] font-bold text-white">
                 {data?.totalProducts ?? 0}
               </span>
             )}
