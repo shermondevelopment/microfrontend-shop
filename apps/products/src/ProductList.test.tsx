@@ -45,4 +45,18 @@ describe("ProductsList", () => {
 
     expect(screen.getByTestId("product-skeleton")).toBeInTheDocument();
   });
+
+  it("renders error message", () => {
+    mockedUseQuery.mockReturnValue({
+      isLoading: false,
+      error: new Error("erro"),
+      data: undefined,
+    } as ReturnType<typeof useQuery>);
+
+    render(<ProductsList />);
+
+    expect(
+      screen.getByText(/nao foi possivel carregar os produtos/i),
+    ).toBeInTheDocument();
+  });
 });
