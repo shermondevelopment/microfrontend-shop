@@ -2,24 +2,14 @@ import "./index.css";
 import { useQuery } from "@tanstack/react-query";
 import { productsQuery } from "./api";
 import { ProductCard } from "./components/Product";
-import { ProductCardSkeleton } from '@microfrontend/ui'
+import { ProductSkeleton } from '@microfrontend/ui'
 
 
 function ProductsList() {
   const { data, error, isLoading } = useQuery(productsQuery);
 
   if (isLoading) {
-    return (
-      <section className="mx-auto max-w-5xl">
-        <h2 className="mb-4 text-xl font-semibold text-slate-900">Todos Produtos</h2>
-
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
-          {Array.from({ length: 8 }).map((_, index) => (
-            <ProductCardSkeleton key={index} />
-          ))}
-        </div>
-      </section>
-    );
+    return <ProductSkeleton />
   }
 
   if (error) {

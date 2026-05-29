@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { HeaderSkeleton } from '@microfrontend/ui'
+import { ProductSkeleton } from '@microfrontend/ui'
 
 const Header = lazy(() => import('header/Header'))
 const Footer = lazy(() => import('footer/Footer'))
@@ -13,7 +14,7 @@ function App() {
       </Suspense>
 
       <section className="flex-1 px-6 py-8">
-        <Suspense fallback={<div>Carregando produtos...</div>}>
+        <Suspense fallback={<ProductSkeleton />}>
           <ProductsList />
         </Suspense>
       </section>

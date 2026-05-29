@@ -1,19 +1,17 @@
-function ProductCardSkeleton() {
+import { ProductCardSkeleton } from '@microfrontend/ui'
+
+function ProductSkeleton() {
   return (
-    <div className="flex h-full flex-col rounded-xl border-2 border-gray-300 bg-white p-8">
-      <div className="h-40 w-full animate-pulse rounded bg-slate-200" />
+    <section className="mx-auto max-w-5xl">
+      <div className="mb-4 h-8 w-48 animate-pulse rounded bg-slate-200" />
 
-      <div className="mt-2 h-12 animate-pulse rounded bg-slate-200" />
-
-      <div className="mx-auto mt-2 h-5 w-16 animate-pulse rounded bg-slate-200" />
-
-      <div className="mx-auto mt-2 h-6 w-24 animate-pulse rounded bg-slate-200" />
-
-      <div className="mt-auto">
-        <div className="mt-2 h-11 w-full animate-pulse rounded-lg bg-slate-200" />
-      </div>
-    </div>
+      <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {Array.from({ length: 8 }).map((_, index) => (
+          <ProductCardSkeleton key={index} />
+        ))}
+      </section>
+    </section>
   )
 }
 
-export default ProductCardSkeleton
+export default ProductSkeleton
