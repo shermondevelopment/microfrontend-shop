@@ -20,4 +20,10 @@ describe('ProductCard', () => {
     expect(screen.getByText('1')).toBeInTheDocument();
     expect(screen.getByText('R$ 10,00')).toBeInTheDocument();
   });
+
+  it('formats price in BRL correctly', () => {
+    render(<ProductCard {...mockProduct} />);
+
+    expect(screen.getByText('R$ 10,00')).toBeInTheDocument();
+  });
 });
