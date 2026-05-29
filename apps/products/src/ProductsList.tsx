@@ -1,6 +1,7 @@
 import './index.css'
 import { useQuery } from '@tanstack/react-query'
 import { productsQuery } from './api'
+import { ProductCard } from './components/Product'
 
 function ProductsList() {
   const { data, error, isLoading } = useQuery(productsQuery)
@@ -15,15 +16,19 @@ function ProductsList() {
 
   return (
     <section className="mx-auto max-w-5xl">
-      <h2 className="mb-4 text-xl font-semibold text-slate-900">Produtos</h2>
+      <h2 className="mb-4 text-xl font-semibold text-slate-900">Todos Produtos</h2>
 
-      <ul className="space-y-2">
+      <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {data?.products.map((product) => (
-          <li key={product.id} className="rounded border border-slate-200 bg-white px-4 py-3">
-            <h3 className="font-medium text-slate-800">{product.title}</h3>
-          </li>
+          <ProductCard
+            key={product.id}
+            image={product.thumbnail}
+            name={product.title}
+            weight={product.weight}
+            price={product.price}
+          />
         ))}
-      </ul>
+      </section>
     </section>
   )
 }
