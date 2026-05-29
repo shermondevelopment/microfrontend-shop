@@ -24,7 +24,7 @@ export function ProductCard({ image, name, weight, price }: ProductCardProps) {
 
       <p className="text-center text-base font-medium">{priceFormatter.format(price)}</p>
 
-      <button className="mt-auto h-11 rounded-lg bg-green-700 px-10 text-white mt-2">
+      <button className="mt-auto h-11 rounded-lg bg-green-700 px-10 text-white">
         Adicionar
       </button>
     </div>
