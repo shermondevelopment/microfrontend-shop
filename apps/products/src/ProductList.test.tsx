@@ -59,4 +59,20 @@ describe("ProductsList", () => {
       screen.getByText(/nao foi possivel carregar os produtos/i),
     ).toBeInTheDocument();
   });
+  it("renders products", () => {
+    mockedUseQuery.mockReturnValue({
+      isLoading: false,
+      error: null,
+      data: {
+        products: [
+          { id: 1, title: "iPhone" },
+          { id: 2, title: "MacBook" },
+        ],
+      },
+    } as ReturnType<typeof useQuery>);
+
+    render(<ProductsList />);
+
+    expect(screen.getAllByTestId("product-card")).toHaveLength(2);
+  });
 });
