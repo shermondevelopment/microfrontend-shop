@@ -28,7 +28,8 @@
     "preview:all": "concurrently \"npm run preview:header\" \"npm run preview:footer\" \"npm run preview:products\" \"npm run preview\"",
     "prepare": "husky",
     "test": "npm run test --workspaces --if-present",
-    "test:header": "vitest run --config apps/header/vitest.config.ts"
+    "test:header": "vitest run --config apps/header/vitest.config.ts",
+    "test:products": "vitest run --config apps/products/vitest.config.ts"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.100.14",
