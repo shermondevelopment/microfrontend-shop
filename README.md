@@ -4,6 +4,9 @@ Aplicação de e-commerce construída com arquitetura de microfrontends usando *
 
 ---
 
+<img width="1512" height="807" alt="Captura de Tela 2026-05-30 às 11 29 24" src="https://github.com/user-attachments/assets/702f936f-bc25-40d9-bb73-4d62199e9743" />
+
+
 ## Estrutura de Pastas
 
 ```
