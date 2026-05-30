@@ -4,7 +4,6 @@ import { productsQuery } from "./api";
 import { ProductCard } from "./components/Product";
 import { ProductSkeleton } from '@microfrontend/ui'
 
-
 function ProductsList() {
   const { data, error, isLoading } = useQuery(productsQuery);
 
@@ -30,6 +29,7 @@ function ProductsList() {
         {data?.products.map((product) => (
           <ProductCard
             key={product.id}
+            id={product.id}
             image={product.thumbnail}
             name={product.title}
             weight={product.weight}

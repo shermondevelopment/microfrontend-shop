@@ -2,8 +2,7 @@ import "./index.css";
 import { Bell, Menu, User, X } from "lucide-react";
 import { useState } from "react";
 import logo from "./assets/logo.svg";
-import { useQuery } from "@tanstack/react-query";
-import { cartQuery } from "./service/api";
+import { useCartStore } from "@microfrontend/shared";
 
 const navItems = [
   { label: "Inicio", path: "#inicio" },
@@ -17,7 +16,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [path, setPath] = useState("#inicio");
 
-  const { data, isLoading } = useQuery(cartQuery);
+  const totalQuantity = useCartStore((state) => state.products.length);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md">
@@ -57,13 +56,12 @@ export default function Header() {
           >
             <Bell className="h-5 w-5 text-text-primary" />
 
-            {isLoading ? (
-              <span data-testid="cart-badge-skeleton" className="absolute -right-1 -top-1 h-5 w-5 animate-pulse rounded-full bg-gray-300" />
-            ) : (
-              <span data-testid="cart-badge" className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-black px-1 text-[10px] font-bold text-white">
-                {data?.totalProducts ?? 0}
-              </span>
-            )}
+            <span
+              data-testid="cart-badge"
+              className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-black px-1 text-[10px] font-bold text-white"
+            >
+              {totalQuantity}
+            </span>
           </button>
 
           <button

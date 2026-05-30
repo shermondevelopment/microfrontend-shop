@@ -8,6 +8,7 @@ describe("ProductCard", () => {
     name: "Arroz Integral",
     weight: 1,
     price: 10,
+    id: 1,
   };
 
   it("renders product information correctly", () => {

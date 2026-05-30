@@ -1,11 +1,18 @@
+import { useCartStore } from '@microfrontend/shared';
+
+
 type ProductCardProps = {
+  id: number;
   image: string;
   name: string;
   weight: number;
   price: number;
 };
 
-export function ProductCard({ image, name, weight, price }: ProductCardProps) {
+export function ProductCard({ id, image, name, weight, price }: ProductCardProps) {
+
+  const addProduct = useCartStore((state) => state.addProduct);
+
 
   const priceFormatter = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
@@ -24,7 +31,17 @@ export function ProductCard({ image, name, weight, price }: ProductCardProps) {
 
       <p className="text-center text-base font-medium">{priceFormatter.format(price)}</p>
 
-      <button className="mt-auto h-11 rounded-lg bg-green-700 px-10 text-white">
+      <button 
+        className="mt-auto h-11 rounded-lg bg-green-700 px-10 text-white"
+        onClick={() => addProduct({
+          id: id,
+          title: name,
+          price: price,
+          quantity: 1,
+          thumbnail: image,
+          total: price
+        })}
+      >
         Adicionar
       </button>
     </div>

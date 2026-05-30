@@ -2,35 +2,37 @@ import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import Header from "./Header";
-import { useQuery, type UseQueryResult } from "@tanstack/react-query";
-import type { Cart } from "@microfrontend/types";
+import { useCartStore } from "@microfrontend/shared";
 
-vi.mock("@tanstack/react-query", () => ({
-  useQuery: vi.fn(),
+vi.mock("@microfrontend/shared", () => ({
+  useCartStore: vi.fn(),
 }));
-
-const mockCartQuery = (
-  overrides: Partial<UseQueryResult<Cart, Error>> = {},
-): UseQueryResult<Cart, Error> =>
-  ({
-    data: {
-      id: 1,
-      products: [],
-      total: 0,
-      discountedTotal: 0,
-      userId: 1,
-      totalProducts: 2,
-      totalQuantity: 2,
-    },
-    isLoading: false,
-    isError: false,
-    error: null,
-    ...overrides,
-  }) as UseQueryResult<Cart, Error>;
 
 describe("Header", () => {
   beforeEach(() => {
-    vi.mocked(useQuery).mockReturnValue(mockCartQuery());
+    vi.mocked(useCartStore).mockImplementation((selector) =>
+      selector({
+        products: [
+          {
+            id: 1,
+            price: 100,
+            title: "Product 1",
+            quantity: 1,
+            thumbnail: "",
+            total: 100,
+          },
+          {
+            id: 2,
+            price: 200,
+            title: "Product 2",
+            quantity: 2,
+            thumbnail: "",
+            total: 400,
+          },
+        ],
+        addProduct: () => {},
+      }),
+    );
   });
 
   it("renders the main navigation", () => {
@@ -82,18 +84,9 @@ describe("Header", () => {
     expect(screen.queryByText("Menu")).not.toBeInTheDocument();
   });
 
-  it("shows badge skeleton while loading", () => {
-    vi.mocked(useQuery).mockReturnValue(
-      mockCartQuery({
-        data: undefined,
-        isLoading: true,
-      }),
-    );
-
+  it("shows cart quantity", () => {
     render(<Header />);
 
-    expect(screen.getByTestId("cart-badge-skeleton")).toBeInTheDocument();
-
-    expect(screen.queryByTestId("cart-badge")).not.toBeInTheDocument();
+    expect(screen.getByTestId("cart-badge")).toHaveTextContent("2");
   });
 });

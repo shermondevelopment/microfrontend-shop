@@ -17,7 +17,7 @@ export default defineConfig({
       exposes: {
         './Footer': './src/Footer.tsx',
       },
-      shared: ['react', 'react-dom', 'lucide-react', '@tanstack/react-query', 'axios'],
+      shared: ['react', 'react-dom', 'lucide-react', '@tanstack/react-query', 'axios', 'zustand'],
     }),
   ],
   server: {
