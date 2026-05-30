@@ -18,7 +18,7 @@ describe("Header", () => {
             price: 100,
             title: "Product 1",
             quantity: 1,
-            thumbnail: "",
+            thumbnail: "https://dummyjson.com/image/150",
             total: 100,
           },
           {
@@ -26,7 +26,7 @@ describe("Header", () => {
             price: 200,
             title: "Product 2",
             quantity: 2,
-            thumbnail: "",
+            thumbnail: "https://dummyjson.com/image/150",
             total: 400,
           },
         ],
@@ -90,5 +90,21 @@ describe("Header", () => {
     render(<Header />);
 
     expect(screen.getByTestId("cart-badge")).toHaveTextContent("3");
+  });
+
+  it("shows cart products when modal is opened", async () => {
+    const user = userEvent.setup();
+
+    render(<Header />);
+
+    await user.click(
+      screen.getByRole("button", {
+        name: "Notificações",
+      }),
+    );
+
+    expect(screen.getByText("Product 1")).toBeInTheDocument();
+
+    expect(screen.getByText("Product 2")).toBeInTheDocument();
   });
 });
