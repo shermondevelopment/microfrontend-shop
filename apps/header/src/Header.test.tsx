@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import Header from "./Header";
 import { useCartStore } from "@microfrontend/shared";
+import { CartList } from "@microfrontend/ui";
 
 vi.mock("@microfrontend/shared", () => ({
   useCartStore: vi.fn(),
@@ -106,5 +107,30 @@ describe("Header", () => {
     expect(screen.getByText("Product 1")).toBeInTheDocument();
 
     expect(screen.getByText("Product 2")).toBeInTheDocument();
+  });
+
+  it("calls onRemoveAll when remove all button is clicked", async () => {
+    const user = userEvent.setup();
+
+    const mockProduct = {
+      id: 1,
+      title: "iPhone 15",
+      price: 5000,
+      quantity: 2,
+      thumbnail: "https://dummyjson.com/image/150",
+      total: 10000,
+    };
+
+    const onRemove = vi.fn();
+
+    render(<CartList products={[mockProduct]} onRemoveAll={onRemove} />);
+    
+    await user.click(
+      screen.getByRole("button", {
+        name: /remover/i,
+      }),
+    );
+
+    expect(onRemove).toHaveBeenCalledWith(1);
   });
 });
