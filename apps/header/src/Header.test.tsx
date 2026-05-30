@@ -32,6 +32,7 @@ describe("Header", () => {
         ],
         addProduct: () => {},
         removeProduct: () => {},
+        removeAllProduct: () => {},
       }),
     );
   });

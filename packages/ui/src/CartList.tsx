@@ -2,12 +2,12 @@ import type { CartProduct } from "@microfrontend/types";
 
 type CartListProps = {
   products: CartProduct[];
-  onRemove?: (id: number) => void;
+  onRemoveAll?: (id: number) => void;
 };
 
 function CartList({
   products,
-  onRemove,
+  onRemoveAll,
 }: CartListProps) {
   if (products.length === 0) {
     return (
@@ -41,9 +41,9 @@ function CartList({
               ${product.price}
             </p>
           </div>
-          {onRemove && (
+          {onRemoveAll && (
             <button
-              onClick={() => onRemove(product.id)}
+              onClick={() => onRemoveAll(product.id)}
               className="rounded-md px-3 py-1 text-sm font-medium text-red-500 transition hover:bg-red-50 hover:text-red-600"
             >
               Remover

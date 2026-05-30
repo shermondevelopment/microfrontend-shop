@@ -5,6 +5,7 @@ interface CartStore {
   products: CartProduct[];
   addProduct: (product: CartProduct) => void;
   removeProduct: (productId: number) => void;
+  removeAllProduct: (productId: number) => void;
 }
 
 export const useCartStore = create<CartStore>((set) => ({
@@ -39,9 +40,7 @@ export const useCartStore = create<CartStore>((set) => ({
     }),
   removeProduct: (productId) =>
     set((state) => {
-      const product = state.products.find(
-        (item) => item.id === productId,
-      );
+      const product = state.products.find((item) => item.id === productId);
 
       if (!product) {
         return state;
@@ -61,9 +60,11 @@ export const useCartStore = create<CartStore>((set) => ({
       }
 
       return {
-        products: state.products.filter(
-          (item) => item.id !== productId,
-        ),
+        products: state.products.filter((item) => item.id !== productId),
       };
     }),
+  removeAllProduct: (productId) =>
+    set((state) => ({
+      products: state.products.filter((item) => item.id !== productId),
+    })),
 }));
