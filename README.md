@@ -1,73 +1,149 @@
-# React + TypeScript + Vite
+# Microfrontend Challenge
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação de e-commerce construída com arquitetura de microfrontends usando **Module Federation** (Vite), **React**, **TypeScript** e **TailwindCSS**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Estrutura de Pastas
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+microfrontend-challange/
+├── apps/
+│   ├── host/          # App principal — orquestra os remotes (porta 3000)
+│   ├── header/        # Microfrontend do cabeçalho (porta 3001)
+│   ├── footer/        # Microfrontend do rodapé (porta 3002)
+│   └── products/      # Microfrontend da listagem de produtos (porta 3003)
+│
+├── packages/
+│   ├── shared/        # Estado global (Zustand), API client, React Query config
+│   ├── types/         # Tipos TypeScript compartilhados (Product, Cart, etc.)
+│   ├── ui/            # Componentes UI reutilizáveis (Skeletons, Modal, CartList)
+│   └── config/
+│       └── tailwind-config/  # Config base do Tailwind compartilhada
+│
+├── package.json       # Scripts e dependências raiz (npm workspaces)
+└── eslint.config.js
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Responsabilidade de cada app
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| App        | Porta | Expõe              | Descrição                                      |
+|------------|-------|--------------------|------------------------------------------------|
+| `host`     | 3000  | —                  | Shell da aplicação, carrega os remotes         |
+| `header`   | 3001  | `header/Header`    | Navbar, carrinho (badge + modal) e menu mobile |
+| `footer`   | 3002  | `footer/Footer`    | Rodapé da página                               |
+| `products` | 3003  | `products/ProductsList` | Grid de produtos com adição ao carrinho  |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## Requisitos
+
+- **Node.js** >= 20.19.0
+- **npm** >= 10
+
+---
+
+## Instalação
+
+```bash
+npm install
 ```
+
+---
+
+## Rodando em Desenvolvimento
+
+Todos os apps ao mesmo tempo:
+
+```bash
+npm run dev:all
+```
+
+Ou individualmente:
+
+```bash
+npm run dev:header    # http://localhost:3001
+npm run dev:footer    # http://localhost:3002
+npm run dev:products  # http://localhost:3003
+npm run dev:host      # http://localhost:3000 (depende dos outros)
+```
+
+> **Importante:** para o `host` funcionar corretamente, os três remotes devem estar rodando antes.
+
+---
+
+## Build
+
+Build completo (todos os apps em sequência):
+
+```bash
+npm run build
+```
+
+Ou por app:
+
+```bash
+npm run build:header
+npm run build:footer
+npm run build:products
+npm run build:host
+```
+
+Os artefatos são gerados em `dist/<app>`.
+
+---
+
+## Preview (após build)
+
+```bash
+npm run preview:all
+```
+
+Ou individualmente:
+
+```bash
+npm run preview:header
+npm run preview:footer
+npm run preview:products
+npm run preview        # host
+```
+
+---
+
+## Testes
+
+Rodar todos os testes:
+
+```bash
+npm test
+```
+
+Ou por app:
+
+```bash
+npm run test:header
+npm run test:products
+```
+
+Os testes usam **Vitest** + **Testing Library** com ambiente `jsdom`.
+
+---
+
+## Lint
+
+```bash
+npm run lint
+```
+
+---
+
+## Tecnologias Principais
+
+- [Vite](https://vitejs.dev/) + [@module-federation/vite](https://github.com/module-federation/vite)
+- [React 19](https://react.dev/)
+- [TypeScript 6](https://www.typescriptlang.org/)
+- [TailwindCSS 3](https://tailwindcss.com/)
+- [Zustand](https://zustand-demo.pmnd.rs/) — estado do carrinho compartilhado entre microfrontends
+- [TanStack Query](https://tanstack.com/query) — cache e fetching de dados
+- [Axios](https://axios-http.com/) — cliente HTTP
+- [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/)
