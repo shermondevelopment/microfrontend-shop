@@ -31,6 +31,7 @@ describe("Header", () => {
           },
         ],
         addProduct: () => {},
+        removeProduct: () => {},
       }),
     );
   });
@@ -41,7 +42,7 @@ describe("Header", () => {
     expect(screen.getByAltText("Logo")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Inicio" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Produtos" })).toBeInTheDocument();
-    expect(screen.getByText("2")).toBeInTheDocument();
+    expect(screen.getByText("3")).toBeInTheDocument();
   });
 
   it("opens the mobile menu", async () => {
@@ -87,6 +88,6 @@ describe("Header", () => {
   it("shows cart quantity", () => {
     render(<Header />);
 
-    expect(screen.getByTestId("cart-badge")).toHaveTextContent("2");
+    expect(screen.getByTestId("cart-badge")).toHaveTextContent("3");
   });
 });

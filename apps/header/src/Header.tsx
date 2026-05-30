@@ -19,8 +19,9 @@ export default function Header() {
 
   const [cartOpen, setCartOpen] = useState(false);
 
-  const totalQuantity = useCartStore((state) => state.products.length);
+  const totalQuantity = useCartStore((state) => state.products.reduce((sum, item) => sum + item.quantity, 0));
   const products = useCartStore((state) => state.products);
+  const removeProduct = useCartStore((state) => state.removeProduct);
 
   return (
     <>
@@ -29,7 +30,7 @@ export default function Header() {
         title="Carrinho"
         onClose={() => setCartOpen(false)}
       >
-        <CartList products={products} />
+        <CartList products={products} onRemove={removeProduct} />
       </Modal>
       <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-10">
