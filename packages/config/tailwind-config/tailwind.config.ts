@@ -12,6 +12,7 @@ const sharedConfig = {
         },
         background: {
           tinted: "rgba(103, 154, 127, 0.33)",
+          primary: "#C6EAD7",
         },
       },
     },
