@@ -138,6 +138,28 @@ Os testes usam **Vitest** + **Testing Library** com ambiente `jsdom`.
 npm run lint
 ```
 
+
+## ☁️ Deploy dos Microfrontends
+
+A aplicação está distribuída em múltiplos microfrontends, cada um hospedado de forma independente via **AWS S3 + CloudFront**.
+
+### 🌐 Acessar a aplicação
+
+* **Host (App principal)**
+  https://d6kooi9qoycog.cloudfront.net
+
+---
+
+### 🔌 Microfrontends (Remotes)
+
+* **Header**
+  https://do4w2f9yum2t1.cloudfront.net
+
+* **Products**
+  https://dpprlnwt0shjp.cloudfront.net
+
+* **Footer**
+  https://d1h65an7ioo3f5.cloudfront.net
 ---
 
 ## Tecnologias Principais
