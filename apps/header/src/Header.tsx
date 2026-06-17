@@ -1,9 +1,11 @@
 import "./index.css";
 import { Bell, Menu, User, X } from "lucide-react";
 import { useState } from "react";
-import logo from "./assets/logo.svg";
 import { useCartStore } from "@microfrontend/shared";
 import { Modal, CartList } from "@microfrontend/ui";
+
+const logo = new URL("./assets/logo.svg", import.meta.url).href;
+
 
 const navItems = [
   { label: "Inicio", path: "#inicio" },
