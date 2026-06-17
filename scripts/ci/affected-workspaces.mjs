@@ -5,7 +5,6 @@ const sharedPaths = [
   'package.json',
   'package-lock.json',
   'tsconfig.json',
-  'apps/',
   'packages/shared/',
   'packages/types/',
   'packages/ui/',
