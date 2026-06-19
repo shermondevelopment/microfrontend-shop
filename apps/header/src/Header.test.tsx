@@ -100,7 +100,7 @@ describe("Header", () => {
 
     await user.click(
       screen.getByRole("button", {
-        name: "Notificações",
+        name: "Carrinho",
       }),
     );
 

@@ -1,5 +1,5 @@
 import "./index.css";
-import { Bell, Menu, User, X } from "lucide-react";
+import { Menu, User, X, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import { useCartStore } from "@microfrontend/shared";
 import { Modal, CartList } from "@microfrontend/ui";
@@ -66,10 +66,10 @@ export default function Header() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setCartOpen(true)}
-              aria-label="Notificações"
+              aria-label="Carrinho"
               className="relative flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-background-tinted shadow-sm transition hover:scale-105 hover:shadow-sm"
             >
-              <Bell className="h-5 w-5 text-text-primary" />
+              <ShoppingCart className="h-5 w-5 text-text-primary" />
 
               <span
                 data-testid="cart-badge"
