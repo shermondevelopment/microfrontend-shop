@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/shermondevelopment/microfrontend-shop/compare/v1.0.0...v1.1.0) (2026-08-27)
+
+
+### Bug Fixes
+
+* **release:** remove notes from release commit message ([a053acf](https://github.com/shermondevelopment/microfrontend-shop/commit/a053acf7e060b2541730b04b3c71b4269b1a5158))
+
+
+### Features
+
+* update color scheme to enhance UI consistency ([d2ec4ba](https://github.com/shermondevelopment/microfrontend-shop/commit/d2ec4badeaac481893752c5515fec6586e1eabd8))
+
 # 1.0.0 (2026-08-27)
 
 
