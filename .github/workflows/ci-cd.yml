@@ -5,10 +5,31 @@ on:
   push:
     branches:
       - main
+      - develop
+  workflow_dispatch:
+    inputs:
+      app:
+        description: App to rollback
+        required: true
+        type: choice
+        options:
+          - header
+          - footer
+          - products
+          - host
+      ref:
+        description: Git ref for rollback (tag, branch, or commit SHA)
+        required: true
+        type: string
+      reason:
+        description: Rollback reason
+        required: false
+        type: string
 
 jobs:
   detect:
     name: Detect affected workspaces
+    if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
     outputs:
       apps: ${{ steps.detect.outputs.apps }}
@@ -105,6 +126,102 @@ jobs:
         shell: bash
         run: |
           case "${{ matrix.app }}" in
+            header)
+              DIST_DIR="dist/header"
+              BUCKET="${{ secrets.AWS_S3_BUCKET_HEADER }}"
+              DISTRIBUTION_ID="${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_HEADER }}"
+              ;;
+            footer)
+              DIST_DIR="dist/footer"
+              BUCKET="${{ secrets.AWS_S3_BUCKET_FOOTER }}"
+              DISTRIBUTION_ID="${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_FOOTER }}"
+              ;;
+            products)
+              DIST_DIR="dist/products"
+              BUCKET="${{ secrets.AWS_S3_BUCKET_PRODUCTS }}"
+              DISTRIBUTION_ID="${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_PRODUCTS }}"
+              ;;
+            host)
+              DIST_DIR="dist/host"
+              BUCKET="${{ secrets.AWS_S3_BUCKET_HOST }}"
+              DISTRIBUTION_ID="${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_HOST }}"
+              ;;
+          esac
+
+          aws s3 sync "$DIST_DIR" "s3://$BUCKET" --delete
+          aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*"
+
+  release:
+    name: Semantic Release
+    needs: [detect, test]
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop') && (needs.test.result == 'success' || needs.test.result == 'skipped')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install deps
+        run: npm ci --ignore-scripts
+
+      - name: Run semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run release
+
+  rollback:
+    name: Manual Rollback to CloudFront
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      VITE_HEADER_REMOTE_URL: ${{ vars.VITE_HEADER_REMOTE_URL }}
+      VITE_FOOTER_REMOTE_URL: ${{ vars.VITE_FOOTER_REMOTE_URL }}
+      VITE_PRODUCTS_REMOTE_URL: ${{ vars.VITE_PRODUCTS_REMOTE_URL }}
+    steps:
+      - name: Rollback summary
+        run: |
+          echo "App: ${{ inputs.app }}"
+          echo "Ref: ${{ inputs.ref }}"
+          echo "Reason: ${{ inputs.reason || 'not provided' }}"
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci --ignore-scripts
+
+      - name: Build rollback app
+        run: npm run build --workspace @microfrontend/${{ inputs.app }}
+
+      - name: Configure AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Deploy rollback to S3 and invalidate CloudFront
+        shell: bash
+        run: |
+          case "${{ inputs.app }}" in
             header)
               DIST_DIR="dist/header"
               BUCKET="${{ secrets.AWS_S3_BUCKET_HEADER }}"
