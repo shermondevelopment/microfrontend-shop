@@ -1,4 +1,4 @@
-import { Component, type ErrorInfo, type ReactNode } from 'react'
+import { Component, type ErrorInfo, type ReactNode } from 'react';
 
 type RemoteErrorBoundaryProps = {
   children: ReactNode
@@ -15,19 +15,19 @@ export class RemoteErrorBoundary extends Component<
 > {
   state: RemoteErrorBoundaryState = {
     hasError: false,
-  }
+  };
 
   static getDerivedStateFromError(): RemoteErrorBoundaryState {
-    return { hasError: true }
+    return { hasError: true };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error(`Failed to load remote: ${this.props.remoteName}`, error, errorInfo)
+    console.error(`Failed to load remote: ${this.props.remoteName}`, error, errorInfo);
   }
 
   handleReload = () => {
-    window.location.reload()
-  }
+    window.location.reload();
+  };
 
   render() {
     if (this.state.hasError) {
@@ -43,9 +43,9 @@ export class RemoteErrorBoundary extends Component<
             Recarregar pagina
           </button>
         </section>
-      )
+      );
     }
 
-    return this.props.children
+    return this.props.children;
   }
 }

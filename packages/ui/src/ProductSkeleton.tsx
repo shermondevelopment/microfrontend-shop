@@ -1,4 +1,4 @@
-import { ProductCardSkeleton } from '@microfrontend/ui'
+import { ProductCardSkeleton } from '@microfrontend/ui';
 
 function ProductSkeleton() {
   return (
@@ -11,7 +11,7 @@ function ProductSkeleton() {
         ))}
       </section>
     </section>
-  )
+  );
 }
 
-export default ProductSkeleton
+export default ProductSkeleton;

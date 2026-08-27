@@ -13,7 +13,7 @@ function ProductCardSkeleton() {
         <div className="mt-2 h-11 w-full animate-pulse rounded-lg bg-slate-200" />
       </div>
     </div>
-  )
+  );
 }
 
-export default ProductCardSkeleton
+export default ProductCardSkeleton;

@@ -1,8 +1,8 @@
-import { defineConfig } from 'vitest/config'
-import react from '@vitejs/plugin-react'
-import { fileURLToPath, URL } from 'node:url'
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
+import { fileURLToPath, URL } from 'node:url';
 
-const productsRoot = fileURLToPath(new URL('.', import.meta.url))
+const productsRoot = fileURLToPath(new URL('.', import.meta.url));
 
 export default defineConfig({
   root: productsRoot,
@@ -17,4 +17,4 @@ export default defineConfig({
       reporter: ['text', 'html'],
     },
   },
-})
+});

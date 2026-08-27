@@ -17,7 +17,7 @@ export function ProductCard({ id, image, name, weight, price }: ProductCardProps
   const priceFormatter = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
-  })
+  });
 
   return (
     <div className="flex h-full flex-col rounded-xl border-2 border-green-700 bg-white p-8">

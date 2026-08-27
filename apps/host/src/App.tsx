@@ -1,10 +1,10 @@
-import { lazy, Suspense } from 'react'
-import { HeaderSkeleton, ProductSkeleton, FooterSkeleton } from '@microfrontend/ui'
-import { RemoteErrorBoundary } from './components/RemoteErrorBoundary'
+import { lazy, Suspense } from 'react';
+import { HeaderSkeleton, ProductSkeleton, FooterSkeleton } from '@microfrontend/ui';
+import { RemoteErrorBoundary } from './components/RemoteErrorBoundary';
 
-const Header = lazy(() => import('header/Header'))
-const Footer = lazy(() => import('footer/Footer'))
-const ProductsList = lazy(() => import('products/ProductsList'))
+const Header = lazy(() => import('header/Header'));
+const Footer = lazy(() => import('footer/Footer'));
+const ProductsList = lazy(() => import('products/ProductsList'));
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
         </Suspense>
       </RemoteErrorBoundary>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;
