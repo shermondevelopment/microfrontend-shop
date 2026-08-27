@@ -2,13 +2,13 @@ import "./index.css";
 import { useQuery } from "@tanstack/react-query";
 import { productsQuery } from "./api";
 import { ProductCard } from "./components/Product";
-import { ProductSkeleton } from '@microfrontend/ui'
+import { ProductSkeleton } from '@microfrontend/ui';
 
 function ProductsList() {
   const { data, error, isLoading } = useQuery(productsQuery);
 
   if (isLoading) {
-    return <ProductSkeleton />
+    return <ProductSkeleton />;
   }
 
   if (error) {

@@ -1,5 +1,5 @@
-import type { Config } from 'tailwindcss'
-import sharedConfig from '@microfrontend/tailwind-config'
+import type { Config } from 'tailwindcss';
+import sharedConfig from '@microfrontend/tailwind-config';
 
 const config = {
   content: {
@@ -11,6 +11,6 @@ const config = {
     ],
   },
   presets: [sharedConfig],
-} satisfies Pick<Config, 'content' | 'presets'>
+} satisfies Pick<Config, 'content' | 'presets'>;
 
-export default config
+export default config;

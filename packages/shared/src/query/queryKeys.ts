@@ -5,4 +5,4 @@ export const queryKeys = {
     detail: (id: string) => ['products', id] as const,
     getCart: () => ['cart'] as const,
   },
-}
+};

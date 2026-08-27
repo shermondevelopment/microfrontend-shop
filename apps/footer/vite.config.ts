@@ -1,9 +1,9 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { federation } from '@module-federation/vite'
-import { fileURLToPath, URL } from 'node:url'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { federation } from '@module-federation/vite';
+import { fileURLToPath, URL } from 'node:url';
 
-const footerRoot = fileURLToPath(new URL('.', import.meta.url))
+const footerRoot = fileURLToPath(new URL('.', import.meta.url));
 
 export default defineConfig({
   root: footerRoot,
@@ -51,4 +51,4 @@ export default defineConfig({
     manifest: true,
     modulePreload: false,
   },
-})
+});

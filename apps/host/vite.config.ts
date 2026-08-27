@@ -1,18 +1,18 @@
-import { fileURLToPath, URL } from 'node:url'
-import { federation } from '@module-federation/vite'
-import react from '@vitejs/plugin-react'
-import { defineConfig, loadEnv } from 'vite'
+import { fileURLToPath, URL } from 'node:url';
+import { federation } from '@module-federation/vite';
+import react from '@vitejs/plugin-react';
+import { defineConfig, loadEnv } from 'vite';
 
-const hostRoot = fileURLToPath(new URL('.', import.meta.url))
+const hostRoot = fileURLToPath(new URL('.', import.meta.url));
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), 'VITE_')
+  const env = loadEnv(mode, process.cwd(), 'VITE_');
 
-  const headerRemote = env.VITE_HEADER_REMOTE_URL ?? 'http://localhost:3001/remoteEntry.js'
-  const footerRemote = env.VITE_FOOTER_REMOTE_URL ?? 'http://localhost:3002/remoteEntry.js'
+  const headerRemote = env.VITE_HEADER_REMOTE_URL ?? 'http://localhost:3001/remoteEntry.js';
+  const footerRemote = env.VITE_FOOTER_REMOTE_URL ?? 'http://localhost:3002/remoteEntry.js';
   const productsRemote =
-    env.VITE_PRODUCTS_REMOTE_URL ?? 'http://localhost:3003/remoteEntry.js'
+    env.VITE_PRODUCTS_REMOTE_URL ?? 'http://localhost:3003/remoteEntry.js';
 
   return {
     root: hostRoot,
@@ -94,5 +94,5 @@ export default defineConfig(({ mode }) => {
       manifest: true,
       modulePreload: false,
     },
-  }
-})
+  };
+});

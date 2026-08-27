@@ -21,7 +21,7 @@ function HeaderSkeleton() {
         </div>
       </div>
     </header>
-  )
+  );
 }
 
-export default HeaderSkeleton
+export default HeaderSkeleton;

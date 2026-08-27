@@ -1,8 +1,8 @@
-import { QueryClientProvider } from '@tanstack/react-query'
-import { createAppQueryClient } from '@microfrontend/shared'
-import ProductsList from './ProductsList'
+import { QueryClientProvider } from '@tanstack/react-query';
+import { createAppQueryClient } from '@microfrontend/shared';
+import ProductsList from './ProductsList';
 
-const queryClient = createAppQueryClient()
+const queryClient = createAppQueryClient();
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <ProductsList />
       </main>
     </QueryClientProvider>
-  )
+  );
 }
 
-export default App
+export default App;

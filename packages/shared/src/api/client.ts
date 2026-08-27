@@ -1,4 +1,4 @@
-import axios, { type AxiosRequestConfig } from 'axios'
+import axios, { type AxiosRequestConfig } from 'axios';
 
 type ApiClientConfig = {
   baseUrl?: string
@@ -14,7 +14,7 @@ export function createApiClient(config: ApiClientConfig = {}) {
       'Content-Type': 'application/json',
       ...config.headers,
     },
-  })
+  });
 
   return {
     delete: async <TData>(path: string, options?: RequestOptions) =>
@@ -27,8 +27,8 @@ export function createApiClient(config: ApiClientConfig = {}) {
       (await client.post<TData>(path, body, options)).data,
     put: async <TData, TBody = unknown>(path: string, body: TBody, options?: RequestOptions) =>
       (await client.put<TData>(path, body, options)).data,
-  }
+  };
 }
 
-export const apiClient = createApiClient()
+export const apiClient = createApiClient();
 
