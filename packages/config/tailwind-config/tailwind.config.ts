@@ -6,13 +6,13 @@ const sharedConfig = {
       colors: {
         text: {
           primary: "#000000",
-          hover: "#0B6434",
+          hover: "#0B2A4A",
           secondary: "#6B7280",
           muted: "#9CA3AF",
         },
         background: {
-          tinted: "rgba(103, 154, 127, 0.33)",
-          primary: "#C6EAD7",
+          tinted: "rgba(11, 42, 74, 0.18)",
+          primary: "#D9E4F2",
         },
       },
     },
