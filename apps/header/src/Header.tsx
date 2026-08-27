@@ -3,17 +3,9 @@ import { Menu, User, X, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import { useCartStore } from "@microfrontend/shared";
 import { Modal, CartList } from "@microfrontend/ui";
+import { navItems } from "./const";
 
 const logo = new URL("./assets/logo.svg", import.meta.url).href;
-
-
-const navItems = [
-  { label: "Inicio", path: "#inicio" },
-  { label: "Sobre", path: "#sobre" },
-  { label: "Serviços", path: "#servicos" },
-  { label: "Produtos", path: "#produtos" },
-  { label: "Contato", path: "#contato" },
-];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
