@@ -7,7 +7,7 @@ const queryClient = createAppQueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <main className="min-h-screen bg-green-50 px-6 py-8">
+      <main className="min-h-screen bg-blue-50 px-6 py-8">
         <ProductsList />
       </main>
     </QueryClientProvider>
