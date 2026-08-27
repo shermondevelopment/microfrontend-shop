@@ -1,9 +1,9 @@
-import { lazy, Suspense } from 'react'
-import { HeaderSkeleton, ProductSkeleton, FooterSkeleton } from '@microfrontend/ui'
+import { lazy, Suspense } from 'react';
+import { HeaderSkeleton, ProductSkeleton, FooterSkeleton } from '@microfrontend/ui';
 
-const Header = lazy(() => import('header/Header'))
-const Footer = lazy(() => import('footer/Footer'))
-const ProductsList = lazy(() => import('products/ProductsList'))
+const Header = lazy(() => import('header/Header'));
+const Footer = lazy(() => import('footer/Footer'));
+const ProductsList = lazy(() => import('products/ProductsList'));
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
         <Footer />
       </Suspense>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;
